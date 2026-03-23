@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fred Blog CMS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Marked.js for parsing Markdown and HTML in article content -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="glass-panel">
+            <h1>Fred <span>Blog</span></h1>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Rechercher des articles...">
+                <button id="searchBtn">Rechercher</button>
+            </div>
+            <button id="newArticleBtn" class="primary-btn">+ Nouvel Article</button>
+        </header>
+
+        <main>
+            <section id="articlesList" class="articles-grid">
+                <!-- Articles injected here via JS -->
+                <div class="loader">Chargement des articles...</div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit/Create Form Modal -->
+    <div id="articleModal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel">
+            <h2 id="modalTitle">Nouvel Article</h2>
+            <form id="articleForm">
+                <input type="hidden" id="articleId">
+                
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input type="text" id="title" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="author">Auteur</label>
+                        <input type="text" id="author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Catégorie</label>
+                        <input type="text" id="category" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags (séparés par des virgules)</label>
+                    <input type="text" id="tags">
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items:center; margin-bottom: 0.5rem;">
+                        <label for="content" style="margin-bottom:0;">Contenu</label>
+                        <div class="import-file-wrapper">
+                            <label for="importFile" class="ghost-btn" style="font-size: 0.75rem; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; display: inline-block;">
+                                📎 Insérer Fichier/Média
+                            </label>
+                            <input type="file" id="importFile" style="display: none;">
+                        </div>
+                    </div>
+                    <textarea id="content" rows="8" required></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="cancelBtn" class="ghost-btn">Annuler</button>
+                    <button type="submit" id="saveBtn" class="primary-btn">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Modal -->
+    <div id="viewModal" class="modal-overlay hidden">
+        <div class="modal-content glass-panel view-mode">
+            <button class="close-view-btn ghost-btn" id="closeViewBtn">← Retour</button>
+            <div class="view-header">
+                <h1 id="viewTitle">Titre</h1>
+                <div class="view-meta">
+                    <span class="badge" id="viewCategory">Catégorie</span>
+                    <span class="text-muted">Par <strong id="viewAuthor">Auteur</strong> le <span id="viewDate">Date</span></span>
+                </div>
+            </div>
+            <div class="view-body" id="viewContent">Contenu...</div>
+            <div class="view-tags" id="viewTags">
+                <!-- Tags -->
+            </div>
+            <div class="modal-actions">
+                <button id="editFromViewBtn" class="primary-btn">Modifier</button>
+                <button id="deleteFromViewBtn" class="danger-btn">Supprimer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
